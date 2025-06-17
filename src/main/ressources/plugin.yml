@@ -1,0 +1,10 @@
+name: MonPremierPlugin
+main: com.votredomaine.MonPremierPlugin
+version: 1.0.0
+api-version: 1.20
+description: >-
+  Un plugin d'exemple minimal pour Spigot/Paper 1.20.
+commands:
+  salut:
+    description: Dit bonjour au joueur
+    usage: /<command>
