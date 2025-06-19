@@ -5,5 +5,6 @@ api-version: 1.20
 description: >-
   Un plugin d'exemple minimal pour Spigot/Paper 1.20.
 commands:
-  getarc:
-    description: Donne un arc explosif
+  gettnt:
+    description: Donne un arc lanceur de TNT
+
