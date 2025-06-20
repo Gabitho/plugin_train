@@ -1,7 +1,6 @@
 package com.firstplugin.listeners;
 
-import com.firstplugin.weapons.TNTLauncher;
-import org.bukkit.Bukkit;
+import com.firstplugin.utils.XPUtils;
 import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.entity.Projectile;
@@ -9,10 +8,10 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityShootBowEvent;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class BowShootListener implements Listener {
 
@@ -25,30 +24,47 @@ public class BowShootListener implements Listener {
     @EventHandler
     public void onShootBow(EntityShootBowEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
+        if (event.getBow() == null) return;
 
-        // Vérifie si c’est bien notre TNTLauncher
-        NamespacedKey key = new NamespacedKey(plugin, "tnt_launcher");
-        PersistentDataContainer container = event.getBow().getItemMeta().getPersistentDataContainer();
-        if (!container.has(key, PersistentDataType.BYTE)) return;
+        ItemMeta meta = event.getBow().getItemMeta();
+        if (meta == null) return;
 
-        // Vérifie s’il a assez d’XP
-        if (player.getLevel() < 3) {
-            player.sendMessage("§cPas assez d'XP !");
-            event.setCancelled(true);
-            return;
+        NamespacedKey key = new NamespacedKey(plugin, "weapon_type");
+        PersistentDataContainer container = meta.getPersistentDataContainer();
+
+        if (!container.has(key, PersistentDataType.STRING)) return;
+
+        String type = container.get(key, PersistentDataType.STRING);
+
+        switch (type) {
+            case "tnt_launcher" -> {
+                int xpCost = 30;
+
+                if (!XPUtils.removeXP(player, xpCost)) {
+                    player.sendMessage("§cPas assez d'expérience !");
+                    event.setCancelled(true);
+                    return;
+                }
+
+                // Supprime la flèche
+                event.getProjectile().remove();
+
+                // Fait apparaître une TNT volante à la place
+                Projectile flèche = (Projectile) event.getProjectile();
+
+                TNTPrimed tnt = player.getWorld().spawn(flèche.getLocation(), TNTPrimed.class);
+                tnt.setVelocity(flèche.getVelocity());
+                tnt.setFuseTicks(40); // 2 secondes
+            }
+
+            case "fire_bow" -> {
+                player.sendMessage("§6Tu tires une flèche enflammée !");
+                // Plus tard : ajouter le comportement de feu ici
+            }
+
+            default -> {
+                player.sendMessage("§7Arme inconnue détectée.");
+            }
         }
-
-        // Consomme 3 niveaux d’XP
-        player.setLevel(player.getLevel() - 3);
-
-        // Supprime la flèche
-        event.getProjectile().remove();
-
-        // Fait apparaître une TNT volante à la place
-        Projectile flèche = (Projectile) event.getProjectile();
-
-        TNTPrimed tnt = player.getWorld().spawn(flèche.getLocation(), TNTPrimed.class);
-        tnt.setVelocity(flèche.getVelocity());
-        tnt.setFuseTicks(40); // 2 secondes
     }
 }

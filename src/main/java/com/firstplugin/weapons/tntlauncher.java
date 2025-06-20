@@ -23,8 +23,7 @@ public class TNTLauncher {
 
         meta.setDisplayName("§cLance-TNT");
         NamespacedKey key = new NamespacedKey(plugin, "tnt_launcher");
-        meta.getPersistentDataContainer().set(key, PersistentDataType.BYTE, (byte) 1);
-
+        meta.getPersistentDataContainer().set(weaponKey, PersistentDataType.STRING, "tnt_launcher");
         arc.setItemMeta(meta);
         return arc;
     }
