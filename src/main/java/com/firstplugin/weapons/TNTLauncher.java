@@ -7,7 +7,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class tntlauncher {
+public class TNTLauncher {
 
     private final JavaPlugin plugin;
 
