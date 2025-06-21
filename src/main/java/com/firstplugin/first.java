@@ -2,7 +2,7 @@ package com.firstplugin;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class MonPremierPlugin extends JavaPlugin {
+public class first extends JavaPlugin {
 
     @Override
     public void onEnable() {

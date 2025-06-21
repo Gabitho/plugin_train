@@ -13,7 +13,7 @@ import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class BowShootListener implements Listener {
+public class tntshoot implements Listener {
 
     private final JavaPlugin plugin;
 
