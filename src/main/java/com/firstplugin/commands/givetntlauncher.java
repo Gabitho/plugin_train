@@ -1,6 +1,6 @@
 package com.firstplugin.commands;
 
-import com.firstplugin.weapons.tntLauncher;
+import com.firstplugin.weapons.TNTLauncher;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
