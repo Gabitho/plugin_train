@@ -17,7 +17,7 @@ public class tntshoot implements Listener {
 
     private final JavaPlugin plugin;
 
-    public tntshootListener(JavaPlugin plugin) {
+    public tntshoot(JavaPlugin plugin) {
         this.plugin = plugin;
     }
 

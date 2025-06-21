@@ -10,7 +10,7 @@ public class givetntlauncher implements CommandExecutor {
 
     private final TNTLauncher launcher;
 
-    public GetTntCommand(TNTLauncher launcher) {
+    public givetntlauncher(TNTLauncher launcher) {
         this.launcher = launcher;
     }
 
