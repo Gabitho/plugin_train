@@ -25,12 +25,5 @@ public class givetntlauncher implements CommandExecutor {
         player.sendMessage("§aTu as reçu un Lance-TNT !");
         return true;
     }
-    @Override
-    public void onEnable() {
-        TNTLauncher launcher = new TNTLauncher(this);
-        getCommand("gettnt").setExecutor(new GetTntCommand(launcher));
-
-        getServer().getPluginManager().registerEvents(new BowShootListener(this), this);
-    }
 
 }
